@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Buy | <%=title%></title>
+        <link rel="stylesheet" href="/Loghome.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
+    </head>
+<body>
+    <header>
+        <div class="logo-container">
+        <div class="logo">Smart Buy</div>
+        </div>
+        <nav>
+        <ul class="nav-links">
+        <li><a  class="nav-link" href="/Loghome">Home</a></li>
+        <li><a class="nav-link"  href="#">All Products <i class="fas fa-caret-down"></i></a>
+        <ul class="sub">
+            <li><a href="/Allproducts">Fashion<i class="fas fa-caret-down"></i></a>
+            <ul class="sub">
+                <li><a href="#">drop 1</a></li>
+                <li><a href="#">drop 2</a></li>
+                <li><a href="#">drop 3</a></li>
+            </ul>
+            </li>
+            <li><a href="#">Electronics<i class="fas fa-caret-down"></i></a>
+                <ul class="sub">
+                    <li><a href="#">drop 1</a></li>
+                    <li><a href="#">drop 2</a></li>
+                    <li><a href="#">drop 3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Others<i class="fas fa-caret-down"></i></a>
+                <ul class="sub">
+                    <li><a href="#">drop 1</a></li>
+                    <li><a href="#">drop 2</a></li>
+                    <li><a href="#">drop 3</a></li>
+                </ul>
+            </li>
+        </ul>
+        </li>
+        <li><a class="nav-link" href="/Sell">Sell</a></li>
+        <li><a class="nav-link" href="/Aboutus">About Us</a></li>
+        <li><a class="login1" href="/profile">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        My Profile
+        </a></li>
+        </ul>
+        </nav>
+        <div class="cart">
+        <a href="/cart"><img src="/Homeimages/whiteshopcart.png"></a>
+    </div>
+    </header>
+
+        
+   <section class="home">
+
+  <!-- error message -->
+  <% if(errormessages) {%>
+    <h6><% if(errormessages.length > 0){%>
+      <div class="errormessage">
+        <%= errormessages %>
+      </div>
+    <% } %>
+  </h6>
+    <% } %>
+    <!-- successmesaage -->
+    <% if(successmessages) {%>
+      <h6><% if(successmessages.length > 0){%>
+        <div class="successmessage">
+          <%= successmessages %>
+        </div>
+      <% } %>
+    </h6>
+      <% } %>
+
+
+
+
+
+
+
+    <div class="slider">
+       <div class="slide active" style="background-image: url('/Homeimages/slide1.jpg')">
+           <div class="container">
+               <div class="caption">
+                   <h1>1. Winter Collection 2020</h1>
+                   <h4>Lorem ipsum dummy text goes here.</h4>
+                   <a href="">Shop Now</a>
+               </div>
+           </div>
+       </div>
+       <div class="slide" style="background-image: url('/Homeimages/slide-2.jpg')">
+           <div class="container">
+               <div class="caption">
+                   <h1>2. Winter Collection 2020</h1>
+                   <h4>Lorem ipsum dummy text goes here.</h4>
+                   <a href="">Shop Now</a>
+               </div>
+           </div>
+       </div>
+       <div class="slide" style="background-image: url('/Homeimages/Slide-3.jpg')">
+           <div class="container">
+               <div class="caption">
+                   <h1>3. Winter Collection 2020</h1>
+                   <h4>Lorem ipsum dummy text goes here.</h4>
+                   <a href="">Shop Now</a>
+               </div>
+           </div>
+       </div>
+    </div>
+  
+   <!-- controls  -->
+   <div class="controls">
+       <div class="prev"><</div>
+       <div class="next">></div>
+   </div>
+
+   <!-- indicators -->
+   <div class="indicator">
+   </div>
+ </section>
+
+ 
+ <div class="sliderproduct" id="slider">
+     <div class="heading">
+         <h2>FASHION  PRODUCTS </h2>
+     </div>
+    <div class="subheading"><h3>MENS</h2></div> 
+    <div class="sliderbox" id="slidermen">
+    </div>
+    <button class="ctrl-btn pro-prev"><i class="fas fa-arrow-left"></i></button>
+    <button class="ctrl-btn pro-next"><i class="fas fa-arrow-right"></i></button>
+  </div>
+
+
+  <script>
+ let mens = document.getElementById("slidermen");
+const slides=document.querySelector(".slider").children;
+ const prev=document.querySelector(".prev");
+ const next=document.querySelector(".next");
+ const indicator=document.querySelector(".indicator");
+ let index=0;
+
+
+
+productScroll();
+
+function productScroll() {
+  let slider = document.getElementById("slider");
+  let next = document.getElementsByClassName("pro-next");
+  let prev = document.getElementsByClassName("pro-prev");
+  let slide = document.getElementById("slidermen");
+  let item = document.getElementById("slidermen");
+  console.log(slider,next,prev,next,item);
+
+  for (let i = 0; i < next.length; i++) {
+    //refer elements by class name
+
+    let position = 0; //slider postion
+
+    prev[i].addEventListener("click", function() {
+      //click previos button
+      if (position > 0) {
+        //avoid slide left beyond the first item
+        position -= 1;
+        translateX(position); //translate items
+      }
+    });
+
+    next[i].addEventListener("click", function() {
+      if (position >= 0 && position < hiddenItems()) {
+        //avoid slide right beyond the last item
+        position += 1;
+        translateX(position); //translate items
+      }
+    });
+  }
+
+  function hiddenItems() {
+    //get hidden items
+    let items = getCount(item, false);
+    let visibleItems = slider.offsetWidth /378;
+    return items - Math.ceil(visibleItems);
+  }
+}
+
+function translateX(position) {
+  //translate items
+  slidermen.style.left = position * -378 + "px";
+}
+
+function getCount(parent, getChildrensChildren) {
+  //count no of items
+  let relevantChildren = 0;
+  let children = parent.childNodes.length;
+
+  for (let i = 0; i < children; i++) {
+    if (parent.childNodes[i].nodeType != 3) {
+      if (getChildrensChildren)
+        relevantChildren += getCount(parent.childNodes[i], true);
+      relevantChildren++;
+    }
+  }
+  return relevantChildren;
+  console.log(relevantChildren);
+
+}
+
+
+
+
+
+
+
+
+
+//javascript of full page slider.
+
+   prev.addEventListener("click",function(){
+       prevSlide();
+       updateCircleIndicator(); 
+       resetTimer();
+   })
+
+   next.addEventListener("click",function(){
+      nextSlide(); 
+      updateCircleIndicator();
+      resetTimer();
+      
+   })
+
+   // create circle indicators
+    function circleIndicator(){
+        for(let i=0; i< slides.length; i++){
+        	const div=document.createElement("div");
+        	      div.innerHTML=i+1;
+                div.setAttribute("onclick","indicateSlide(this)")
+                div.id=i;
+                if(i==0){
+                	div.className="active";
+                }
+               indicator.appendChild(div);
+        }
+    }
+    circleIndicator();
+
+    function indicateSlide(element){
+         index=element.id;
+         changeSlide();
+         updateCircleIndicator();
+         resetTimer();
+    }
+     
+    function updateCircleIndicator(){
+    	for(let i=0; i<indicator.children.length; i++){
+    		indicator.children[i].classList.remove("active");
+    	}
+    	indicator.children[index].classList.add("active");
+    }
+
+   function prevSlide(){
+   	 if(index==0){
+   	 	index=slides.length-1;
+   	 }
+   	 else{
+   	 	index--;
+   	 }
+   	 changeSlide();
+   }
+
+   function nextSlide(){
+      if(index==slides.length-1){
+      	index=0;
+      }
+      else{
+      	index++;
+      }
+      changeSlide();
+   }
+
+   function changeSlide(){
+   	       for(let i=0; i<slides.length; i++){
+   	       	 slides[i].classList.remove("active");
+   	       }
+
+       slides[index].classList.add("active");
+   }
+
+   function resetTimer(){
+   	  // when clicked to indicator or controls button 
+   	  // stop timer 
+   	  clearInterval(timer);
+   	  // then started again timer
+   	  timer=setInterval(autoPlay,4000);
+   }
+ 
+  
+  function autoPlay(){
+      nextSlide();
+      updateCircleIndicator();
+  }
+
+  let timer=setInterval(autoPlay,4000);
+
+
+  let url = `http://localhost:4000`;
+fetch("http://localhost:4000/AllMens")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+console.log(res);
+let product = res.product;
+console.log(product);
+let images = res.img
+console.log(images);
+
+
+for( let i=0;i<product.length;i++){
+    
+let productid=product[i].productid;
+let productname=product[i].productname;
+let userid = product[i].userid;
+let price = product[i].price;
+let brand = product[i].brand;
+let Title= product[i].Title;
+let Description = product[i].Description
+let condition= product[i].Condition;
+let filename1 = images[i].productfilename1;
+let filename2 = images[i].productfilename2;
+
+let div =document.createElement("div")
+div.innerHTML =`
+
+    
+<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+	<div class="flipper">
+		<div class="front">
+            <!-- front content -->
+        <img src=${filename1}>
+        <div class="front-footer">
+            <div class="firstrow">
+            <h2>${productname}</h2>
+            <p>${condition}</p>
+        </div>
+        <div class="secondrow">
+            <h2>${brand}</h2>
+        <p><i class="fas fa-rupee-sign"></i>${price}</p> 
+        </div>
+        </div>
+		</div>
+		<div class="back">
+            <!-- back content -->
+        <img src="${filename2}">
+        <div class="back-footer">
+        <h2>${Title}</h2> 
+        <p>${Description}</p>
+        </div>
+        <div class="form-buttons">
+        <form method="post" action="/productview">
+            <input type="hidden" name="productid" value=${productid}>
+            <input class="viewproduct" id="viewproduct" name="viewproduct" type="submit" value="VIEW PRODUCT">
+        </form>
+        <form method="post" action="/product/${productid}">
+            <input type="hidden" name=${productid}>
+            <input type="hidden" name=${productname}>
+            <input type="hidden" name=${Title}>
+            <input type="hidden" name=${price}>    
+         <input class="addtocart" type="submit" value="ADD TO CART"> 
+         </form>
+         </div>
+		</div>
+	</div>
+</div>
+
+
+ `
+ 
+ console.log(mens)
+ mens.appendChild(div);
+}
+
+})
+
+   </script>
+</body>
+</html>
+
+

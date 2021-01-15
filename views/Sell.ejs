@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Buy | <%=title%></title>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/sell.css">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
+    </head>
+<body>
+       
+    <header>
+        <div class="logo-container">
+        <div class="logo">Smart Buy</div>
+        </div>
+        <nav>
+        <ul class="nav-links">
+        <li><a  class="nav-link" href="/Loghome">Home</a></li>
+        <li><a class="nav-link"  href="#">All Products <i class="fas fa-caret-down"></i></a>
+        <ul class="sub">
+            <li><a href="#">Fashion<i class="fas fa-caret-down"></i></a>
+            <ul class="sub">
+                <li><a href="#">drop 1</a></li>
+                <li><a href="#">drop 2</a></li>
+                <li><a href="#">drop 3</a></li>
+            </ul>
+            </li>
+            <li><a href="#">Electronics<i class="fas fa-caret-down"></i></a>
+                <ul class="sub">
+                    <li><a href="#">drop 1</a></li>
+                    <li><a href="#">drop 2</a></li>
+                    <li><a href="#">drop 3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Others<i class="fas fa-caret-down"></i></a>
+                <ul class="sub">
+                    <li><a href="#">drop 1</a></li>
+                    <li><a href="#">drop 2</a></li>
+                    <li><a href="#">drop 3</a></li>
+                </ul>
+            </li>
+        </ul>
+        </li>
+        <li><a class="nav-link" href="/Sell">Sell</a></li>
+        <li><a class="nav-link" href="/Aboutus">About Us</a></li>
+        <li><a class="login1" href="/profile">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        My Profile
+        </a></li>
+        </ul>
+        </nav>
+        <div class="cart">
+        <a href="/cart"><img src="/Homeimages/whiteshopcart.png"></a>
+    </div>
+    </header>
+    <div class="wrapper">
+     <div class="container1">
+    <h1>POST YOUR PRODUCTS HERE</h1>
+        
+<h4><%=typeof msg != 'undefined'? msg :''%> </h4>
+    <div class="image-preview">
+      
+    <ul class="thumbnails">
+        <li class="adjust">
+            <a href="#slide1">
+                <img src="<%=typeof image1 != 'undefined'? image1 :''%> 
+                " class="img">
+            </a>
+        </li>
+        <li>
+            <a href="#slide2">
+                <img src="<%=typeof image2 != 'undefined'? image2 :''%> 
+                " class="img">
+            </a>
+        </li>
+    </ul>
+    <ul class="slides">
+        <li id="slide1">
+    <img src="<%=typeof image1 != 'undefined'? image1 :''%> 
+    " class="img"></li>
+    <li id="slide2">
+    <img src="<%=typeof image2 != 'undefined'? image2 :''%> 
+    " class="img"></li>
+     </ul>
+     </div> 
+    </div> 
+    <span class="line"></span>
+     <div class="container2">
+    <form action="/multipart-upload"   method="POST" enctype="multipart/form-data" >
+        <label>
+            <span>PRODUCT NAME :</span>
+            <input id="productname" type="name" name="productname" required placeholder="Enter product name">
+          </label>
+          <label>
+            <span>Title :</span>
+            <input id="title" type="name" name="title" required placeholder="Enter product title">
+          </label>
+          <label>
+            <span>Brand :</span>
+            <input id="brand" type="name" name="Brand"placeholder="Enter brand if any">
+          </label>
+          <label>
+            <span>Model no:</span>
+            <input id="model" type="name" name="model" placeholder="Enter Model no: if any">
+          </label>
+          <label>
+            <span> Your Company Name :</span>
+            <input id="company" type="name" name="company"placeholder="Enter company name if any">
+          </label>
+              <label>
+                <span class="drop2">Category</span>
+               <select name="category" id="category" type="option" required>
+                <option value="">Select</option>
+                <option value="MENS">MENS</option>
+                <option value="WOMENS">WOMENS</option>
+                <option value="MOBILES">MOBILES</option>
+                <option value="LAPTOP&DESKTOPS">LAPTOP&DESKTOPS</option>
+          </select>    
+          <span class="drop1">Condition</span>
+          <select name="condition" id="condition" required>
+           <option value="">Select</option>
+           <option value="Brandnew">Brand New</option>
+           <option value="Likenew">Like New</option>
+           <option value="Used">Used</option>
+          </select>
+          </label>
+          <label>
+            <span> Enter Product Price :</span>
+            <i class="fas fa-rupee-sign"></i>
+            <input id="Price" type="number" name="Price" required min="1"max="99999" >
+          </label>
+          <label class="qty" >
+            <span>Quantity</span>
+          <input id="Quantity" type="number" name="Quantity" required min="1"max="999" >
+          <button id="btn" onclick="increment()">+</button>
+          <button id="btn" onclick="decrement()">-</button>
+          </label>
+          <label>
+            <span class="text">Description :</span>
+            <textarea name="description"type="text" id="textarea" cols="20" rows="10" required placeholder="Enter product description"></textarea>
+          </label>
+          <label>
+            <span>2 IMAGES ONLY :</span>
+            <input type="file" name="images" id="images" value="uploadimages" multiple required>
+        </label>
+     <input type="submit" class="btn" value="CONFIRM">
+    </div>
+     </form>
+</div>
+
+<script>
+
+
+function increment() {
+  var value = parseInt(document.getElementById('Quantity').value, 10);
+  value = isNaN(value) ? 0 : value;
+  value++;
+  document.getElementById('Quantity').value = value;
+}
+
+function decrement() {
+  var value = parseInt(document.getElementById('Quantity').value, 10);
+  value = isNaN(value) ? 1 : value;
+  value < 1 ? value = 1 : '';
+  value--;
+  document.getElementById('Quantity').value = value;
+}
+
+
+</script>
+</body>
+</html>
+

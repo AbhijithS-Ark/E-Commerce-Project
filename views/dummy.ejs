@@ -1,0 +1,36 @@
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img src=${filename1}>
+            <div class="front-footer">
+                <h2>${productname}</h2>
+                <h2>${brand}</h2>
+            </div>
+            <form method="post" action="/productview/${productid}">
+            <input type="hidden" name=${productid}>
+            <input class="viewproduct" type="submit" value="VIEW PRODUCT">
+        </form>
+        <form method="post" action="/product/${productid}">
+            <input type="hidden" name=${productid}>
+            <input type="hidden" name=${productname}>
+            <input type="hidden" name=${Title}>
+            <input type="hidden" name=${price}>    
+         <input class="addtocart" type="submit" value="ADD TO CART"> 
+         </form>
+        </div>
+        <div class="flip-card-back">
+            <div class="back-header">
+            <img src="${filename2}">
+            </div>
+            <div class="back-footer">
+                <h2>${Title}</h2>
+            <p><i class="fas fa-rupee-sign"></i>${price}</p> 
+            <p>${condition}</p>
+            <p>${Description}</p>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+    
+    

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product View | <%=title%></title>
+    <link href="/productviewslider.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
+
+</head>
+<body>    
+    <br></br>
+    
+     <div id="content-wrapper">
+        <div class="column">
+            <img id="featured" src="">
+                <br></br>
+            <div  id="slide-wrapper">
+            <span id="slideLeft" class="arrow" ><i class="fas fa-arrow-left"></i></span>
+                <div id="slider">
+                    <img class="thumbnail active" src="iphone/Image1.jpeg">
+                    <img class="thumbnail" src="iphone/Image2.jpeg">
+                </div>
+            <span id="slideRight" class="arrow" ><i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+</div>
+<script>
+
+
+let thumbnails =document.getElementsByClassName('thumbnail')
+let activeImages = document.getElementsByClassName('active')
+
+        for(var i=0 ; i < thumbnails.length; i++){
+                console.log(activeImages)
+            thumbnails[i].addEventListener('mouseover',function(){
+
+                    if(activeImages.length > 0){
+                         activeImages[0].classList.remove('active')
+                    }
+                    this.classList.add('active')
+                    document.getElementById("featured").src  = this.src
+                 })
+        }
+
+//for arrow
+let buttonRight = document.getElementById('slideRight');
+let buttonLeft = document.getElementById('slideLeft');
+
+buttonLeft.addEventListener("click",function(){
+        document.getElementById("slider").scrollLeft -=180
+        })
+buttonRight.addEventListener("click",function(){
+                document.getElementById("slider").scrollLeft +=180
+        })
+
+
+        let url = `http://localhost:4000`;
+fetch("http://localhost:4000/productview")
+.then((product) => {
+
+    console.log(product);
+
+    return product.json();
+
+
+}).then((product)=>{
+    console.log(product);
+})
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Buy | <%=title%></title>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/Register.css">
+        <script type= "text/javascript" src = "countries.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
+    </head>
+<body>
+  <header>
+    <div class="logo-container">
+    <div class="logo">Smart Buy</div>
+    </div>
+    <nav>
+    <ul class="nav-links">
+    <li><a  class="nav-link" href="/">Home</a></li>
+    <li><a  class="nav-link" href="/Aboutus">About Us</a></li>
+    <li><a  class="login1" href="/Login">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Login
+    </a></li>
+    </ul>
+    </nav>
+</div>
+</header>
+
+
+    <div class="wrapper">
+        <!-- error message -->
+     <% if(errormessages) {%>
+      <h6><% if(errormessages.length > 0){%>
+        <div class="errormessage">
+          <%= errormessages %>
+        </div>
+      <% } %>
+    </h6>
+      <% } %>
+      <!-- successmesaage -->
+      <% if(successmessages) {%>
+        <h6><% if(successmessages.length > 0){%>
+          <div class="successmessage">
+            <%= successmessages %>
+          </div>
+        <% } %>
+      </h6>
+        <% } %>
+        <div class="cont">
+          <form class="loginform" action="/signin" method="POST">  
+          <div class="form sign-in">
+            <h2 class="head1">Login</h2>
+            <label>
+              <span>Email</span>
+              <input  id="useremail"type="email" name="useremail" required>
+            </label>
+            <label>
+              <span>Password</span>
+              <input id="userpassword" type="password" name="userpassword"   data-required="true">
+              <i class="icon  fas fa-eye"></i>
+            </label>
+            <input class="Login btn btn-primary" type="submit" value="Login">
+          </div>
+        </form>
+      
+          <div class="sub-cont">
+            <div class="img">
+              <div class="img-text m-up">
+                <h2 class="head1">New here?</h2>
+                <p>Sign up and discover products you Desire the most.</p>
+              </div>
+              <div class="img-text m-in">
+                <h2 class="head1">One of us?</h2>
+                <p>If you already have an account, just Login. We've missed you!</p>
+              </div>
+              <div class="img-btn">
+                <span class="m-up">Sign Up</span>
+                <span class="m-in">Login</span>
+              </div>
+            </div>
+         
+         <form class="signupform" action="/signup" method="POST">
+            <div class="form sign-up">
+              <h2 class="head1">Sign Up</h2>
+              <label>
+                <span>Email</span>
+                <input id="email" type="email" name="email" required>
+              </label>
+              <label>
+                <span>Password</span>
+                <input  id="password" type="password" name="password" onkeyup="validatePassword(this.value)"; required>
+                 <span id="msg"></span>
+                 <i  class="icon1   fas fa-eye"></i>
+              </label >
+              <label>
+                <span>Confirm Password</span>
+                <input id="confirmpassword" type="password" name="confirmpassword"  required>
+                <i class="icon2  fas fa-eye"></i>
+              </label>
+
+              <label>
+                <span>First Name </span>
+                <input id="Fname" type="text" name="Fname" required , autofocus>
+              </label>
+              <label>
+                <span>Last Name</span>
+                <input  id="Lname"type="text" name="Lname">
+              </label>
+              <label>
+                <span>Apartment.No</span>
+                <input id="aptno" name="aptno"type="number"min="0" max="999999">
+              </label>
+              <label>
+                <span>Street address</span>
+                <input  id="street" type="text" name="street" required>
+              </label>
+              <label>
+                <span>Address</span>
+                <input id="address"   type="text" name="address" required>
+              </label>
+              <label>
+          <span>Country:</span><select  onchange="print_state('state',this.selectedIndex);" id="country" name ="country" required></select>
+              </label>
+              <label>
+               <span> City/District/State:</span><select name ="state" id ="state" required></select>
+              </label>
+              <label>
+                <span>Zip-code</span>
+                <input id="zipcode" name="zipcode"type="number"required min="0">
+              </label>
+              <label>
+                <span>phone-number</span>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"required>
+                <small class="format">Format: 123-456-7890</small>
+              </label>
+            <input class="signup btn btn-primary" type="submit" value="Signup">
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+
+
+
+    
+
+
+      <script>
+        language="javascript">print_country("country");
+      
+        document.querySelector('.img-btn').addEventListener('click', function()
+          {
+              document.querySelector('.cont').classList.toggle('s-signup')
+          }
+      );
+
+      let password1 = document.getElementById('password');
+      let password2 = document.getElementById('confirmpassword');
+      
+      let password = document.getElementById('userpassword');
+      let eye = document.querySelector('.icon');
+      let eye1 = document.querySelector('.icon1');
+      let eye2 = document.querySelector('.icon2');
+
+eye.addEventListener('click',togglepass);
+eye1.addEventListener('click',togglepass1);
+eye2.addEventListener('click',togglepass2);
+
+function togglepass(){
+  eye.classList.toggle('active');
+ (password.type == 'password') ? password.type = 'text': 
+ password.type='password';
+
+}
+
+function togglepass1(){
+  eye1.classList.toggle('active');
+ (password1.type == 'password') ? password1.type = 'text': 
+ password1.type='password';
+
+}
+
+
+function togglepass2(){
+  eye2.classList.toggle('active');
+ (password2.type == 'password') ? password2.type = 'text': 
+ password2.type='password';
+
+}
+
+
+function validatePassword(password) {
+
+                 
+    // Do not show anything when the length of password is zero.
+    if (password.length === 0) {
+        document.getElementById("msg").innerHTML = "";
+        return;
+    }
+    // Create an array and push all possible values that you want in password
+    var matchedCase = new Array();
+    matchedCase.push("[$@$!%*#?&]"); // Special Charector
+    matchedCase.push("[A-Z]");      // Uppercase Alpabates
+    matchedCase.push("[0-9]");      // Numbers
+    matchedCase.push("[a-z]");     // Lowercase Alphabates
+
+    // Check the conditions
+    var ctr = 0;
+    for (var i = 0; i < matchedCase.length; i++) {
+        if (new RegExp(matchedCase[i]).test(password)) {
+            ctr++;
+        }
+    }
+    // Display it
+    var color = "";
+    var strength = "";
+    switch (ctr) {
+        case 0:
+        case 1:
+        case 2:
+            strength = "Very Weak";
+            color = "red";
+            break;
+        case 3:
+            strength = "Medium";
+            color = "orange";
+            break;
+        case 4:
+            strength = "Strong";
+            color = "green";
+            break;
+    }
+    document.getElementById("msg").innerHTML = strength;
+    document.getElementById("msg").style.color = color;
+  }
+
+     
+      </script>
+</body>
+</html>

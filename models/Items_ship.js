@@ -6,11 +6,6 @@ module.exports = (sequelize , DataTypes) =>{
             primaryKey: true,
             autoIncrement: true
         },
-
-        shipaddress: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         shipdate: {
             type: DataTypes.DATE,
             allowNull: false

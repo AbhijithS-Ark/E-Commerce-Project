@@ -3,29 +3,52 @@
 <head>
     <title>Product View | <%=title%></title>
     <link href="/productviewslider.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
 
 </head>
-<body>    
+<body>  
+    <header>
+        <div class="logo-container">
+        <div class="logo">Smart Buy</div>
+        </div>
+        <nav>
+        <ul class="nav-links">
+        <li><a class="nav-link" href="/Loghome">Home</a></li>
+        <li><a  class="nav-link" href="/Aboutus">About Us</a></li>
+        </ul>
+        </nav>
+    </div>
+    </header>
     <br></br>
-    
      <div id="content-wrapper">
-        <div class="column">
-            <img id="featured" src="">
+        <div class="column column1">
+            <img  src="<%=typeof image1 != 'undefined'? image1 :''%>"id="featured">
                 <br></br>
-            <div  id="slide-wrapper">
-            <span id="slideLeft" class="arrow" ><i class="fas fa-arrow-left"></i></span>
+            
                 <div id="slider">
-                    <img class="thumbnail active" src="iphone/Image1.jpeg">
-                    <img class="thumbnail" src="iphone/Image2.jpeg">
+                    <img class="thumbnail active" src="<%=typeof image1 != 'undefined'? image1 :''%>">
+                    <img class="thumbnail" src="<%=typeof image2 != 'undefined'? image2 :''%>">
                 </div>
-            <span id="slideRight" class="arrow" ><i class="fas fa-arrow-right"></i></span>
-            </div>
+            
+        </div>
+        <div class=" column column2">
+            <span class="bar"></span>
+            <span class="productname"><%=typeof productname != 'undefined'? productname :''%></span>
+            <div class="part2">
+            <span class="title">Title:<%=typeof title != 'undefined'? title :''%></span>
+           <span class="brand">Brand:<%=typeof brand != 'undefined'? brand :''%></span>
+             <div class="subpart">   
+            <span class="modelno"><%=typeof modelno != 'undefined'? modelno :''%></span>
+            <span class="condition"><%=typeof condition != 'undefined'? condition :''%></span>
+        </div>
+        <i class="fas fa-rupee-sign"></i>
+        <span class="price"><%=typeof price != 'undefined'? price :''%></span>
+    </div>
+         <span class="description">Description : <%=typeof description != 'undefined'? description :''%></span>
         </div>
 </div>
 <script>
-
-
 let thumbnails =document.getElementsByClassName('thumbnail')
 let activeImages = document.getElementsByClassName('active')
 
@@ -37,35 +60,9 @@ let activeImages = document.getElementsByClassName('active')
                          activeImages[0].classList.remove('active')
                     }
                     this.classList.add('active')
-                    document.getElementById("featured").src  = this.src
+                    document.getElementById("featured").src = this.src
                  })
         }
-
-//for arrow
-let buttonRight = document.getElementById('slideRight');
-let buttonLeft = document.getElementById('slideLeft');
-
-buttonLeft.addEventListener("click",function(){
-        document.getElementById("slider").scrollLeft -=180
-        })
-buttonRight.addEventListener("click",function(){
-                document.getElementById("slider").scrollLeft +=180
-        })
-
-
-        let url = `http://localhost:4000`;
-fetch("http://localhost:4000/productview")
-.then((product) => {
-
-    console.log(product);
-
-    return product.json();
-
-
-}).then((product)=>{
-    console.log(product);
-})
     </script>
-    
 </body>
 </html>

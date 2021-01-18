@@ -8,7 +8,10 @@ module.exports = (sequelize , DataTypes) =>{
             primaryKey: true,
             autoIncrement: true
         },
-        Productname: {
+        productid: {
+            type: DataTypes.INTEGER,
+        },
+        Productname:{
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -16,11 +19,15 @@ module.exports = (sequelize , DataTypes) =>{
             type: DataTypes.STRING,
             allowNull: false
         },
+        File: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         Price: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        Oty_ordered: {
+        Qty_ordered: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

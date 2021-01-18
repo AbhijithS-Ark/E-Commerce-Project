@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    background: #4D4D4D;
+    height:100vh;
+}
+#content-wrapper{
+    display: flex;
+    margin-top:2% ;
+}
+.column{
+    justify-content: center;
+}
+ .column.column1{
+    flex:0.5;
+    align-items: center;
+    justify-content: center;
+    margin-left:5% ;
+}
+ .column.column2{
+    flex:1;
+    background:#ffffff;
+    box-shadow: 0 2px 5px #ffffff;
+    margin-right:5% ;
+border-radius: 10px;
+}
+
+#featured{
+    max-width: 600px;
+    max-height: 400px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #ffffff;
+}
+
+.thumbnail{
+    object-fit: cover;
+    max-width: 180px;
+    max-height: 100px;
+    cursor: pointer;
+    opacity: 0.5;
+    margin: 5px;
+    border: 2px sloid rgb(221, 27, 27);
+}
+.thumbnail:hover{
+    opacity: 1;
+}
+.active{
+    opacity: 1;
+}
+
+#slider{
+    width: 200px;
+    display: flex;
+    height:130px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    background: #616060;
+    justify-content:space-evenly;
+    align-items: center;
+    border-radius: 5px;
+    margin:5px 0 0 32px;
+}
+
+.productname{
+    font-family:Lobster,'sans-serif';
+    font-size:2rem;
+    font-weight: 500;
+    margin:15% 0 0 45%;
+    color:#ffffff;
+  padding:10px 20px;
+  z-index:2;
+  background: #ff3f04;
+  text-align: center;
+  line-height:1;
+  box-shadow: 0 2px 5px #c4c4c4c4;
+}
+.part2{
+    margin-top: 5%;
+    width:100%;
+    height:10rem;
+    background: #2a2a2a;
+}
+span.title{
+    display:inline-block;
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+    margin:5px auto;
+    color:#ffffff;
+    vertical-align: middle;
+    line-height: normal;
+    margin-left:30%;
+    margin-right:16%;
+
+}
+.brand{
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+    margin:5px auto;
+    color:#ffffff;
+    vertical-align: middle;
+    line-height: normal;
+}
+.subpart{
+   margin-top: 10px;
+}
+.modelno{
+    display:inline-block;
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+    margin:5px auto;
+    color:#ffffff;
+    vertical-align: middle;
+    line-height: normal;
+    margin-left:30%;
+    margin-right:20%;
+}
+.condition{
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+    color:#ffffff;
+    vertical-align: middle;
+    line-height: normal;
+   background: #f84a15;
+   padding:5px 12px;
+}
+.description{
+    margin: 10px 0 0 10px;
+    color:#2a2a2ae8;
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+}
+.price{
+    color:#ffffff;
+    font-family:'Poppins',sans-serif;
+    font-size:1.2rem;
+    font-weight: 500;
+
+}
+
+
+.fas.fa-rupee-sign{
+    font-size: 1rem;
+    color:#ffffff;
+    margin-left: 31%;
+}

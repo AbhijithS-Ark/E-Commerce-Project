@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Smart Buy | <%=title%></title>
         <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/cart.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">    
     </head>
 <body>
@@ -14,30 +15,22 @@
         </div>
         <nav>
         <ul class="nav-links">
-        <li><a  class="nav-link" href="/">Home</a></li>
+        <li><a  class="nav-link" href="/Loghome">Home</a></li>
         <li><a class="nav-link"  href="#">All Products <i class="fas fa-caret-down"></i></a>
         <ul class="sub">
-            <li><a href="#">Fashion<i class="fas fa-caret-down"></i></a>
+            <li><a href="#Fashion">Fashion<i class="fas fa-caret-down"></i></a>
             <ul class="sub">
-                <li><a href="#">drop 1</a></li>
-                <li><a href="#">drop 2</a></li>
-                <li><a href="#">drop 3</a></li>
+                <li><a href="#Mens">MENS</a></li>
+                <li><a href="#Womens">WOMENS</a></li>
             </ul>
             </li>
-            <li><a href="#">Electronics<i class="fas fa-caret-down"></i></a>
+            <li><a href="#Electronics">Electronics<i class="fas fa-caret-down"></i></a>
                 <ul class="sub">
-                    <li><a href="#">drop 1</a></li>
-                    <li><a href="#">drop 2</a></li>
-                    <li><a href="#">drop 3</a></li>
+                    <li><a href="#Mobiles">Mobiles</a></li>
+                    <li><a href="#Laptops">Laptops&Deaktops</a></li> 
                 </ul>
             </li>
-            <li><a href="#">Others<i class="fas fa-caret-down"></i></a>
-                <ul class="sub">
-                    <li><a href="#">drop 1</a></li>
-                    <li><a href="#">drop 2</a></li>
-                    <li><a href="#">drop 3</a></li>
-                </ul>
-            </li>
+            
         </ul>
         </li>
         <li><a class="nav-link" href="/Sell">Sell</a></li>
@@ -52,11 +45,107 @@
         </ul>
         </nav>
         <div class="cart">
-        <a href="/cart"><img src="/Homeimages/whiteshopcart.png"></a>
+        <a href="/cart"><img src="/Homeimages/Vector.png"></a>
     </div>
     </header>
+    <div class="cart-container">
+        <div class="cartitems"></div>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tr id="cartitems">
+               
+            </tr>
+        </table>
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td >Total Amount</td>
+                    <td id="total"><i class="fas fa-rupee-sign"></i>00</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <form action="/checkout" method="POST">
+        <input class="checkout" type="submit" name="checkout"value="CHECKOUT">
+    </form>
+
+  <script>
+      let cartitems=document.getElementById("cartitems");
+      let totalprice=document.getElementById("total")
+  let url = `http://localhost:4000`;
+fetch("http://localhost:4000/cartproducts")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+    console.log(res);
+let cart=res.cart;
+console.log(cart);
+for(let i=0;i<cart.length;i++){
+    let cartid=cart[i].cartid;
+    let productid=cart[i].productid;
+    let productname=cart[i].Productname;
+    let title=cart[i].Title;
+    let file=cart[i].File;
+    let price=cart[i].Price;
+    let Qty=cart[i].Qty_ordered;
+    let userid=cart[i].userid;
+    let div=document.createElement("div")
+    let updatedprice = Qty * price;
+   
+    div.innerHTML=`
     
-    
+        <div class="content">
+                  <div class="cart-info">
+                      <img src="${file}" alt="${productname}">
+                    </div>
+                  <div class="cartcontent">
+                      <p class="productname">${productname}</p>
+                      <p>${title}</p>
+                      <small><i class="fas fa-rupee-sign"></i>${price}</small>
+                      <small>Qty:${Qty}</small>
+                  </div>
+                  <div class="deletebutton">
+            <form action="/cartdelete" method="POST">
+                <input type="hidden" name="cartid" value="${cartid}">
+                <input class="a" type="submit" name="REMOVE"value="REMOVE">
+            </form>
+              </div>
+              <div class="calculation">
+            <form action="/cartquantity" method="POST">
+                <div class="direct">
+                    <td><input name="qty" class="quantity"type="number" value="1"min="1"max="5"></td>
+                    <input type=hidden value=${cartid} name="cartid">
+                    <input type=hidden value=${productid} name="productid">
+                    <input class="update" type="submit" name="Update"value="Update">
+                    </div>
+            </form>
+              <td class="subtotal"><i class="fas fa-rupee-sign"></i><p>${updatedprice}</p></td>  
+              </div>
+              </div>
+    `
+    console.log(cartitems);
+    cartitems.appendChild(div);
+}
+
+})
+
+fetch("http://localhost:4000/carttotal")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+  console.log(res);
+  let totalprice=res.totalprice;
+console.log(totalprice);
+   total.innerHTML=`<i class="fas fa-rupee-sign"><span class="price"> ${totalprice}</span>`;
+   console.log(total);
+})
+  </script>  
 </body>
 </html>
 

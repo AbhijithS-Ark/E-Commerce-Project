@@ -11,7 +11,8 @@ let forcedrouting = false;
 const multer = require('multer');
 var bodyParser = require('body-parser')
 const path = require('path');
-const { randomInt } = require("crypto");
+const { render } = require("ejs");
+
 var now = new Date();
 var timeID = Number(now);
 //setting up the disk storage as memery storage might cause issues
@@ -98,8 +99,8 @@ db.sequelize.sync({ force:true }).then(()=>{
 db.userprofile.belongsTo(db.user, {foreignKey: 'userid', targetKey: 'userid'});
 db.user.hasOne(db.userprofile, {foreignKey: 'userid', targetKey: 'userid'});
 
-db.cart.belongsTo(db.user, {foreignKey: 'userid', targetKey: 'userid'});
-db.user.hasOne(db.cart, {foreignKey: 'userid', targetKey: 'userid'});
+db.cart.belongsTo(db.user, {foreignKey: 'userid'});
+db.user.hasMany(db.cart, {foreignKey: 'userid'});
 
 db.user.hasMany(db.ship, {foreignKey: 'userid'});
 db.ship.belongsTo(db.user, {foreignKey: 'userid'});
@@ -115,12 +116,10 @@ db.productimg.belongsTo(db.product, { foreignKey: 'productid',targetKey:'product
 db.category.hasMany(db.product, { foreignKey: 'categoryid' }); // creating foreign key
 db.product.belongsTo(db.category, { foreignKey: 'categoryid' });
 
+db.ship.belongsTo(db.cart ,{foreignKey: 'cartid', targetKey: 'cartid'});
+db.cart.hasOne(db.ship,{foreignKey: 'cartid', targetKey: 'cartid'});
 
-db.cart.hasMany(db.product, { foreignKey: 'cartid' }); // creating foreign key
-db.product.belongsTo(db.cart, { foreignKey: 'cartid' });
 
-
-//association from cart to ships table will be done later;
 
 //category creation
 
@@ -201,7 +200,7 @@ app.get("/Loghome", (req, res) => {
 //page to display user profile
 app.get("/profile", (req, res) => {
    if (req.session.loggedin === true) {
-       return res.render("profile")
+        res.render("profile",{title:'Profile'});
    } else {
        forcedrouting = true;
        res.redirect("/Login");
@@ -218,29 +217,10 @@ app.get("/logout", (req, res) => {
    }
 });
 
-
-
 //listen to All products request
 app.get('/Allproducts', (req,res) =>{
    res.render('Allproducts',{title :'Allproducts'});
 });
-
-
-//listen to cart form/page  request
-app.get('/cart',(req,res)=>{
-   res.render('cart',{title :'cart'});
-});
-
-app.get('/Aboutus',(req,res)=>{
-   res.render('Aboutus',{title :'About Us'});
-});
-
-
-//404 error occured 
-app.get('/404',(req,res)=>{
-   res.render('404',{title :'About Us'});
-});
-
 
 
 
@@ -474,7 +454,7 @@ app.post('/multipart-upload',(req,res)=>{
    }
    
 })
-
+//finding all products of acategory
 app.get("/AllMens",(req,res)=>{
    console.log("triggered");
 db.product.findAll({
@@ -500,6 +480,86 @@ db.product.findAll({
    })
 });
 
+app.get("/AllWomens",(req,res)=>{
+   console.log("triggered");
+db.product.findAll({
+   where: {categoryid:2},
+   }) .then((product1)=>{
+      let idarray1 = []
+      product1.forEach(element => {
+         idarray1.push(element.dataValues.productid)
+      });
+      console.log(idarray1);
+      db.productimg.findAll({
+      where :{productid:idarray1}
+      }).then((img1)=>{
+            console.log(img1);
+            res.send({
+               product1,
+               img1
+            })
+         })
+      
+   }).catch((err)=>{
+      console.log("some error occured here please find",err)
+   })
+});
+
+app.get("/AllMobiles",(req,res)=>{
+   console.log("triggered");
+db.product.findAll({
+   where: {categoryid:3},
+   }) .then((product3)=>{
+      let idarray3 = []
+      product3.forEach(element => {
+         idarray3.push(element.dataValues.productid)
+      });
+      console.log(idarray3);
+      db.productimg.findAll({
+      where :{productid:idarray3}
+      }).then((img3)=>{
+            console.log(img3);
+            res.send({
+               product3,
+               img3
+            })
+         })
+      
+   }).catch((err)=>{
+      console.log("some error occured here please find",err)
+   })
+});
+
+app.get("/AllDesktop&Laptops",(req,res)=>{
+   console.log("triggered");
+db.product.findAll({
+   where: {categoryid:4},
+   }) .then((product4)=>{
+      let idarray4 = []
+      product4.forEach(element => {
+         idarray4.push(element.dataValues.productid)
+      });
+      console.log(idarray4);
+      db.productimg.findAll({
+      where :{productid:idarray4}
+      }).then((img4)=>{
+            console.log(img4);
+            res.send({
+               product4,
+               img4
+            })
+         })
+      
+   }).catch((err)=>{
+      console.log("some error occured here please find",err)
+   })
+});
+
+
+
+
+
+
 app.get('/product',(req,res)=>{
    if(req.session.loggedin==true){
       res.render('PRODUCTVIEW',{ title:'PRODUCT'})
@@ -510,7 +570,7 @@ app.get('/product',(req,res)=>{
 })
 
 
-
+//viewing of product 
 
 app.post("/productview",(req,res)=>{
    console.log(req.body);
@@ -521,13 +581,354 @@ app.post("/productview",(req,res)=>{
    }).then((product)=>{
       let productinfo = product.dataValues;
       console.log(productinfo);
+      let productID=productinfo.productid;
+      let productname=productinfo.productname;
+      let modelno=productinfo.Modelno;
+      let brand=productinfo.brand;
+      let title=productinfo.Title;
+      let description=productinfo.Description;
+      let condition=productinfo.Condition;
+      let price=productinfo.price;
+      let companyname=productinfo.Company_name;
+      let Qty_add=productinfo.Qty_add;
+       console.log(productID);
+       console.log(productname);
+       console.log(modelno);
+       console.log(brand);
+       console.log(title);
+       console.log(description);
+       console.log(condition);
+       console.log(price);
+       console.log(companyname);
+       console.log(Qty_add);
+
       db.productimg.findOne({
       where:{productid:productid}
       }).then((images)=>{
          console.log(images);
-      return   res.render('PRODUCTVIEW',{ title:'PRODUCT',product:product,product:images})
+         let image1 = images.productfilename1;
+         let image2 = images.productfilename2;
+         console.log(image1);
+         console.log(image2);
+
+      return   res.render('PRODUCTVIEW',{ title:'PRODUCT',image1,image2,productID,productname,modelno,brand,title,condition,price,description,companyname,Qty_add})
       }).catch((err)=>{
          console.log("some error occured here please find",err)
       })
    })
+});
+
+
+//cart addition of products by user.
+app.post("/addtocart",(req,res)=>{
+   console.log(req.body);
+   console.log("triggered");
+   let userid=req.session.userid;
+   console.log(userid,"this id");
+   let productuserid=req.body.userID;
+   console.log(productuserid);
+   let productname=req.body.productname;
+   console.log(productname);
+   let title=req.body.Title;
+   console.log(title);
+   let price=req.body.price;
+   console.log(price);
+   let filename=req.body.filename1;
+   console.log(filename);
+   let productid=req.body.productid;
+   console.log(productid);
+   db.cart.findOne({where: {userid:userid, Productid:productid}})
+   .then((cart)=>{
+            if(cart){
+      return res.render("Loghome", { successmessages: '', errormessages: 'This product has been already added' , title:'Loghome' })  
+            }
+            else if(req.session.userid==productuserid){
+               return res.render("Loghome", { successmessages: '', errormessages: 'You are trying to add products posted by You' , title:'Loghome' })
+            }
+            else if(db.product.findOne({
+               where:{productid:productid},
+               attributes:['Qty_add']
+            })=='0'){
+               return res.render("Loghome", { successmessages: '', errormessages: 'You are trying to add out of stock of stock product !' , title:'Loghome' })
+            }
+            else{
+               db.cart.create({
+                  productid:`${productid}`,
+                  Productname:`${productname}`,
+                  Title:`${title}`,
+                  File:`${filename}`,
+                  Price:`${price}`,
+                  Qty_ordered:`${1}`,
+                  userid:`${userid}`
+               }).then(()=>{
+               return res.render("cart", { title:'cart' })
+               }).catch((err)=>{
+                  console.log("some error occured here please find",err)
+               })
+            }       
+   }).catch((err)=>{
+      console.log("some error occured here please find",err)
+   })
 })
+
+
+//listen to cart form/page  request
+app.get('/cart',(req,res)=>{
+   if(req.session.loggedin==true){
+   res.render('cart',{title :'cart'});
+   }
+   else{
+    return  res.redirect("/Login");
+   }
+});
+
+app.get('/cartproducts',(req,res)=>{
+   db.cart.findAll({
+      where:{userid:req.session.userid}
+   }).then((cart)=>{
+       console.log(cart);
+       res.send({cart});
+   })
+        
+})
+
+app.post('/cartdelete',(req,res)=>{
+   console.log(req.body);
+   let cartid=req.body.cartid;
+   console.log(cartid);
+   db.ship.destroy({
+      where:{
+         userid:req.session.userid,
+         cartid:cartid
+      }
+   }).then(()=>{
+      db.cart.destroy({
+         where:{
+            userid:req.session.userid,
+            cartid:cartid
+         }
+      }).then(()=>{
+         return  res.render('cart',{title :'cart'});
+            }).catch((err)=>{
+               console.log("some error occured here please find",err)
+          })
+   })
+})
+
+app.post('/cartquantity',(req,res)=>{
+   console.log(req.body);
+   let cartid = req.body.cartid;
+   console.log(cartid);
+   let qty=req.body.qty;
+   console.log(qty);
+   let productid=req.body.productid;
+   console.log(productid);
+   db.cart.update({Qty_ordered:qty},{
+      where:{
+         userid:req.session.userid,
+         cartid:cartid
+      }
+   }) .then(()=>{
+      db.cart.findAll({
+where:{
+   userid:req.session.userid
+},
+attributes:['Qty_ordered','price']
+      }).then((cart)=>{
+     console.log(cart);
+     let quantity = []
+     cart.forEach(element => {
+        quantity.push(element.dataValues.Qty_ordered)
+     });
+     console.log(quantity);
+     let price = []
+     cart.forEach(element => {
+      price.push(element.dataValues.price)
+     });
+     console.log(price);
+     let totalprice = 0;
+       for(let i=0;i<cart.length;i++){
+          totalprice+=cart[i].dataValues.Qty_ordered*cart[i].dataValues.price;
+       }
+       console.log(totalprice);
+       return  res.render('cart',{title :'cart'});
+      }).catch((err)=>{
+                  console.log("some error occured here please find",err)
+             })        
+   })
+   }) 
+ 
+
+   app.get('/carttotal',(req,res)=>{
+      db.cart.findAll({
+         where:{
+            userid:req.session.userid
+         },
+         attributes:['Qty_ordered','price']
+               }).then((cart)=>{
+                  let totalprice = 0;
+                  for(let i=0;i<cart.length;i++){
+                     totalprice+=cart[i].dataValues.Qty_ordered*cart[i].dataValues.price;
+                  }
+                  console.log(totalprice);
+                  res.send({totalprice});
+               })
+   })
+
+app.get('/ship',(req,res)=>{
+   if(req.session.loggedin===true){
+      res.render('ship',{title:'shipment'})
+   }
+   else{
+      return res.redirect('/Login');
+   }
+})
+//checkout of products
+app.post('/checkout',(req,res)=>{
+    db.cart.findAll({
+       where:{userid:req.session.userid}
+    }).then((cart)=>{
+      let cartid = []
+      cart.forEach(element => {
+         cartid.push(element.dataValues.cartid)
+      });
+      
+      console.log(cartid);
+      let productid = []
+      cart.forEach(element => {
+         productid.push(element.dataValues.productid)
+      });
+      console.log(productid);
+      let Qty = []
+      cart.forEach(element => {
+         Qty.push(element.dataValues.Qty_ordered)
+      });
+      console.log(Qty);
+      console.log(productid);
+      console.log(cartid);
+      let today=new Date();
+      let date=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      console.log(date);
+      let arrivaldate=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()+5);
+      console.log(arrivaldate);
+      for( let i=0;i<=cartid.length;i++){
+      db.ship.create({
+         shipdate:`${date}`,
+         arrivaldate:`${arrivaldate}`,
+         userid:`${req.session.userid}`,
+         cartid:`${cartid[i]}`
+      })
+   }
+      db.product.findAll({
+         where:{productid:productid},
+            attributes:['Qty_add']
+            }).then((product)=>{
+               let Quantity = []
+               product.forEach(element => {
+                   Quantity.push(element.dataValues.Qty_add);
+               });
+               console.log(Quantity);
+               let UpdatedQuantity = []
+               for(i=0;i<Quantity.length;i++){
+                     UpdatedQuantity[i]=Quantity[i]-Qty[i];
+               }
+               console.log(UpdatedQuantity);
+               for(let i=0;i<=UpdatedQuantity.length;i++){
+               db.product.update({Qty_add:UpdatedQuantity[i]},{
+                  where:{productid:productid,Qty_add:Quantity[i]}
+    })   
+    }
+   }) .then(()=>{
+      return res.render('ship',{title:'shipment'})
+         }).catch((err)=>{
+             console.log("some error occured here please find",err)
+         }) 
+   })
+})
+
+
+
+app.get('/shipping',(req,res)=>{
+  db.ship.findAll({
+     where:{userid:req.session.userid}
+  }).then((ship)=>{
+   console.log(ship);
+   db.cart.findAll({
+      where:{userid:req.session.userid}
+   }).then((cart)=>{
+        console.log(cart);
+        db.userprofile.findOne({
+           where:{userid:req.session.userid}
+        }).then((user)=>{
+            console.log(user);
+            res.send({
+               ship,cart,user
+            })
+        }).catch((err)=>{
+         console.log("some error occured here please find",err)
+        })
+})
+  })
+})
+app.get('/userprofile',(req,res)=>{
+   db.userprofile.findOne({
+      where:{userid:req.session.userid}
+   }).then((profile)=>{
+      console.log(profile);
+       db.product.findAll({
+          where:{userid:req.session.userid}
+       }).then((product)=>{
+       console.log(product)
+       res.send({profile,product});
+      }).catch((err)=>{
+         console.log("some error occured here please find",err)
+        })
+        
+   })   
+})
+
+app.post('/updateprofile',(req,res)=>{
+   console.log(req.body);
+   let firstname=req.body.firstname;
+   console.log(firstname);
+   let lastname=req.body.lastname;
+   console.log(lastname);
+   let aptno=req.body.aptno;
+   console.log(aptno);
+   let street=req.body.street;
+   console.log(street);
+   let country=req.body.country;
+   console.log(country);
+   let city=req.body.city;
+   console.log(city);
+   let phone=req.body.phone;
+   console.log(phone);
+   let zip=req.body.zip;
+   console.log(zip);
+   let address=req.body.address;
+   console.log(address);
+db.userprofile.update({Firstname:`${firstname}`,Lastname:`${lastname}`,apt_no:`${aptno}`,street_address:`${street}`,address:`${address}`,City:`${city}`,Zip_code:`${zip}`,Country:`${country}`,Phone_no:`${phone}`},{
+where:{userid:req.session.userid}                     
+}).then(()=>{
+return  res.render("profile",{title:'Profile'})
+}).catch((err)=>{
+   console.log("some error occured here please find",err)
+  })
+
+  })
+//Aboutus 
+  app.get('/Aboutus',(req,res)=>{
+     if(req.session.loggedin==true){
+      res.render('Aboutus',{title :'About Us'});
+     }else{
+  return res.redirect('/Login');
+     }
+});
+
+
+
+
+//404 error occured 
+app.get('*',(req,res)=>{
+   res.render('404',{title :'About Us'});
+});

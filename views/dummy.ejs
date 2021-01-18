@@ -33,4 +33,41 @@
     </div>
     </div>
     
+    <td>
+        <div class="cart-info">
+            <img src="file" alt="productname">
+        <div>
+            <p>product name</p>
+            <p>Title</p>
+            <small>Price: R 4000</small>
+            <br></br>
+            <a href="">Remove</a>
+        </div>
+        </div>
+    </td>
+    <td><input type="number" value="1" max="5"></td>
+    <td>R 4000</td>
+
+
     
+/*.then(()=>{
+    db.product.findOne({
+       where:{productid:productid
+    },
+    attributes:['Qty_add']
+    }).then((product)=>{
+       console.log(product);
+       console.log(qty);
+       console.log(product._previousdatavalues);
+       let qtyproduct= product.Qty_add;
+       console.log(qtyproduct);
+       let qtyupdated=qtyproduct-qty;
+       console.log(qtyupdated);
+       db.product.update({Qty_add:qtyupdated},{
+          where:{
+            productid:productid
+          }
+       })
+    })
+ })*/
+ 

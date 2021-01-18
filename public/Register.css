@@ -332,6 +332,21 @@ cursor: pointer;
             transform:translate3d(0, 0, 0);
   }
 
+.errormessage{
+  position:absolute;
+  color:#ff3e04;
+  font-size:1rem;
+  top:10%;
+  left:45%;
+  z-index: 999;
 
-
+}
+.successmessage{
+  position:absolute;
+  color:#ffffff;
+  font-size:1rem;
+  top:10%;
+  left:40%;
+  z-index: 999;
+}
 

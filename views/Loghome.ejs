@@ -17,28 +17,19 @@
         <li><a  class="nav-link" href="/Loghome">Home</a></li>
         <li><a class="nav-link"  href="#">All Products <i class="fas fa-caret-down"></i></a>
         <ul class="sub">
-            <li><a href="/Allproducts">Fashion<i class="fas fa-caret-down"></i></a>
+            <li><a href="#fashion">Fashion<i class="fas fa-caret-down"></i></a>
             <ul class="sub">
-                <li><a href="#">drop 1</a></li>
-                <li><a href="#">drop 2</a></li>
-                <li><a href="#">drop 3</a></li>
+                <li><a href="#Mens">MENS</a></li>
+                <li><a href="#Womens">WOMENS</a></li>
             </ul>
             </li>
-            <li><a href="#">Electronics<i class="fas fa-caret-down"></i></a>
+            <li><a href="#Electronics">Electronics<i class="fas fa-caret-down"></i></a>
                 <ul class="sub">
-                    <li><a href="#">drop 1</a></li>
-                    <li><a href="#">drop 2</a></li>
-                    <li><a href="#">drop 3</a></li>
+                    <li><a href="#Mobiles">Mobiles</a></li>
+                    <li><a href="#Laptops">Laptop&Desktops</a></li>
                 </ul>
             </li>
-            <li><a href="#">Others<i class="fas fa-caret-down"></i></a>
-                <ul class="sub">
-                    <li><a href="#">drop 1</a></li>
-                    <li><a href="#">drop 2</a></li>
-                    <li><a href="#">drop 3</a></li>
-                </ul>
-            </li>
-        </ul>
+          </ul>
         </li>
         <li><a class="nav-link" href="/Sell">Sell</a></li>
         <li><a class="nav-link" href="/Aboutus">About Us</a></li>
@@ -52,7 +43,7 @@
         </ul>
         </nav>
         <div class="cart">
-        <a href="/cart"><img src="/Homeimages/whiteshopcart.png"></a>
+        <a href="/cart"><img src="/Homeimages/Vector.png"></a>
     </div>
     </header>
 
@@ -81,34 +72,31 @@
 
 
 
-
-
-
     <div class="slider">
        <div class="slide active" style="background-image: url('/Homeimages/slide1.jpg')">
            <div class="container">
                <div class="caption">
-                   <h1>1. Winter Collection 2020</h1>
-                   <h4>Lorem ipsum dummy text goes here.</h4>
-                   <a href="">Shop Now</a>
+                   <h1>Winter Collection 2021</h1>
+                   <h4>Discover your Best Selection Here </h4>
+                   <a href="#Fashion">Shop Now</a>
                </div>
            </div>
        </div>
        <div class="slide" style="background-image: url('/Homeimages/slide-2.jpg')">
            <div class="container">
                <div class="caption">
-                   <h1>2. Winter Collection 2020</h1>
-                   <h4>Lorem ipsum dummy text goes here.</h4>
-                   <a href="">Shop Now</a>
+                   <h1>LIVE YOUR STYLE !</h1>
+                   <h4>Shop Best fashion product's till your Hearts' content</h4>
+                   <a href="#Womens">Shop Now</a>
                </div>
            </div>
        </div>
        <div class="slide" style="background-image: url('/Homeimages/Slide-3.jpg')">
            <div class="container">
                <div class="caption">
-                   <h1>3. Winter Collection 2020</h1>
-                   <h4>Lorem ipsum dummy text goes here.</h4>
-                   <a href="">Shop Now</a>
+                   <h1>Hold The Future InYour Hands</h1>
+                   <h4>Refresh your space to Better Things</h4>
+                   <a href="#Electronics">Shop Now</a>
                </div>
            </div>
        </div>
@@ -125,22 +113,58 @@
    </div>
  </section>
 
- 
+
  <div class="sliderproduct" id="slider">
      <div class="heading">
-         <h2>FASHION  PRODUCTS </h2>
+         <h2 id="fashion">FASHION  PRODUCTS </h2>
      </div>
-    <div class="subheading"><h3>MENS</h2></div> 
+    <div class="subheading"><h3 id="Mens">MENS</h2></div> 
     <div class="sliderbox" id="slidermen">
     </div>
     <button class="ctrl-btn pro-prev"><i class="fas fa-arrow-left"></i></button>
     <button class="ctrl-btn pro-next"><i class="fas fa-arrow-right"></i></button>
   </div>
+ 
+  <div class="sliderproduct" id="slider1">
+    <div class="heading">
+    </div>
+   <div class="subheading"><h3 id="Womens">WOMENS</h2></div> 
+   <div class="sliderbox" id="sliderwomen">
+   </div>
+   <button class="ctrl-btn pro-prev1"><i class="fas fa-arrow-left"></i></button>
+   <button class="ctrl-btn pro-next1"><i class="fas fa-arrow-right"></i></button>
+ </div>
+
+
+ <div class="sliderproduct" id="slider2">
+  <div class="heading">
+      <h2 id="Electronics">ELECTRONICS</h2>
+  </div>
+ <div class="subheading"><h3 id="Mobiles">MOBILES</h3></div> 
+ <div class="sliderbox" id="slidermobile">
+ </div>
+ <button class="ctrl-btn pro-prev2"><i class="fas fa-arrow-left"></i></button>
+ <button class="ctrl-btn pro-next2"><i class="fas fa-arrow-right"></i></button>
+</div>
+
+<div class="sliderproduct" id="slider3">
+  <div class="heading">
+  </div>
+ <div class="subheading"><h3 id="Laptops">Desktop&Laptops</h2></div> 
+ <div class="sliderbox" id="sliderlaptop">
+ </div>
+ <button class="ctrl-btn pro-prev3"><i class="fas fa-arrow-left"></i></button>
+ <button class="ctrl-btn pro-next3"><i class="fas fa-arrow-right"></i></button>
+</div>
 
 
   <script>
- let mens = document.getElementById("slidermen");
-const slides=document.querySelector(".slider").children;
+ let mobiles = document.getElementById("slidermobile");
+ let laptops = document.getElementById("sliderlaptop");
+  let mens = document.getElementById("slidermen");
+
+
+  const slides=document.querySelector(".slider").children;
  const prev=document.querySelector(".prev");
  const next=document.querySelector(".next");
  const indicator=document.querySelector(".indicator");
@@ -156,7 +180,7 @@ function productScroll() {
   let prev = document.getElementsByClassName("pro-prev");
   let slide = document.getElementById("slidermen");
   let item = document.getElementById("slidermen");
-  console.log(slider,next,prev,next,item);
+  console.log(slider,next,prev,slide,item);
 
   for (let i = 0; i < next.length; i++) {
     //refer elements by class name
@@ -212,7 +236,71 @@ function getCount(parent, getChildrensChildren) {
 }
 
 
+let womens = document.getElementById("sliderwomen");
+/*
+productScroll1();
 
+function productScroll1() {
+  let slider1 = document.getElementById("slider1");
+  let next1 = document.getElementsByClassName("pro-next1");
+  let prev1 = document.getElementsByClassName("pro-prev1");
+  let slide1 = document.getElementById("sliderwomen");
+  let item1 = document.getElementById("sliderwomen");
+  console.log(slider1,next1,prev1,slide1,item1);
+
+  for (let i = 0; i < next1.length; i++) {
+    //refer elements by class name
+
+    let position = 0; //slider postion
+
+    prev1[i].addEventListener("click", function() {
+      //click previos button
+      if (position > 0) {
+        //avoid slide left beyond the first item
+        position-= 1;
+        translateX(position); //translate items
+      }
+    });
+
+    next1[i].addEventListener("click", function() {
+      if (position >= 0 && position < hiddenItems1()) {
+        //avoid slide right beyond the last item
+        position += 1;
+        translateX(position); //translate items
+      }
+    });
+  }
+
+  function hiddenItems1() {
+    //get hidden items
+    let items1 = getCount(item1, false);
+    let visibleItems1 = slider1.offsetWidth /378;
+    return items1 - Math.ceil(visibleItems1);
+  }
+}
+
+function translateX(position) {
+  //translate items
+  sliderwomen.style.left = position * -378 + "px";
+}
+
+function getCount(parent, getChildrensChildren) {
+  //count no of items
+  let relevantChildren1 = 0;
+  let children1 = parent.childNodes.length;
+
+  for (let i = 0; i < children1; i++) {
+    if (parent.childNodes[i].nodeType != 3) {
+      if (getChildrensChildren)
+        relevantChildren1 += getCount(parent.childNodes[i], true);
+      relevantChildren1++;
+    }
+  }
+  return relevantChildren1;
+  console.log(relevantChildren1);
+
+}
+*/
 
 
 
@@ -326,6 +414,7 @@ for( let i=0;i<product.length;i++){
 let productid=product[i].productid;
 let productname=product[i].productname;
 let userid = product[i].userid;
+console.log(userid);
 let price = product[i].price;
 let brand = product[i].brand;
 let Title= product[i].Title;
@@ -366,11 +455,13 @@ div.innerHTML =`
             <input type="hidden" name="productid" value=${productid}>
             <input class="viewproduct" id="viewproduct" name="viewproduct" type="submit" value="VIEW PRODUCT">
         </form>
-        <form method="post" action="/product/${productid}">
-            <input type="hidden" name=${productid}>
-            <input type="hidden" name=${productname}>
-            <input type="hidden" name=${Title}>
-            <input type="hidden" name=${price}>    
+        <form method="post" action="/addtocart">
+          <input type="hidden" name="userID" value=${userid}>
+          <input type="hidden" name="productid" value=${productid}>
+           <input type="hidden" name="productname" value=${productname}>
+            <input type="hidden" name="Title" value=${Title}>
+            <input type="hidden" name="price" value=${price}>
+            <input type="hidden" name="filename1" value=${filename1}>
          <input class="addtocart" type="submit" value="ADD TO CART"> 
          </form>
          </div>
@@ -381,11 +472,258 @@ div.innerHTML =`
 
  `
  
- console.log(mens)
+ console.log(mens);
  mens.appendChild(div);
 }
 
 })
+
+
+fetch("http://localhost:4000/AllWomens")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+console.log(res);
+let product = res.product1;
+console.log(product);
+let images = res.img1;
+console.log(images);
+
+
+for( let i=0;i<product.length;i++){
+    
+let productid=product[i].productid;
+let productname=product[i].productname;
+let userid = product[i].userid;
+console.log(userid);
+let price = product[i].price;
+let brand = product[i].brand;
+let Title= product[i].Title;
+let Description = product[i].Description
+let condition= product[i].Condition;
+let filename1 = images[i].productfilename1;
+let filename2 = images[i].productfilename2;
+
+let div =document.createElement("div")
+div.innerHTML =`
+
+    
+<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+	<div class="flipper">
+		<div class="front">
+            <!-- front content -->
+        <img src=${filename1}>
+        <div class="front-footer">
+            <div class="firstrow">
+            <h2>${productname}</h2>
+            <p>${condition}</p>
+        </div>
+        <div class="secondrow">
+            <h2>${brand}</h2>
+        <p><i class="fas fa-rupee-sign"></i>${price}</p> 
+        </div>
+        </div>
+		</div>
+		<div class="back">
+            <!-- back content -->
+        <img src="${filename2}">
+        <div class="back-footer">
+        <h2>${Title}</h2> 
+        <p>${Description}</p>
+        </div>
+        <div class="form-buttons">
+        <form method="post" action="/productview">
+            <input type="hidden" name="productid" value=${productid}>
+            <input class="viewproduct" id="viewproduct" name="viewproduct" type="submit" value="VIEW PRODUCT">
+        </form>
+        <form method="post" action="/addtocart">
+          <input type="hidden" name="userID" value=${userid}>
+          <input type="hidden" name="productid" value=${productid}>
+           <input type="hidden" name="productname" value=${productname}>
+            <input type="hidden" name="Title" value=${Title}>
+            <input type="hidden" name="price" value=${price}>
+            <input type="hidden" name="filename1" value=${filename1}>
+         <input class="addtocart" type="submit" value="ADD TO CART"> 
+         </form>
+         </div>
+		</div>
+	</div>
+</div>
+
+
+ `
+ 
+ console.log(womens);
+ womens.appendChild(div);
+}
+
+})
+
+  
+fetch("http://localhost:4000/AllMobiles")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+console.log(res);
+let product = res.product3;
+console.log(product);
+let images = res.img3;
+console.log(images);
+
+
+for( let i=0;i<product.length;i++){
+    
+let productid=product[i].productid;
+let productname=product[i].productname;
+let userid = product[i].userid;
+console.log(userid);
+let price = product[i].price;
+let brand = product[i].brand;
+let Title= product[i].Title;
+let Description = product[i].Description
+let condition= product[i].Condition;
+let filename1 = images[i].productfilename1;
+let filename2 = images[i].productfilename2;
+
+let div =document.createElement("div")
+div.innerHTML =`
+
+    
+<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+	<div class="flipper">
+		<div class="front">
+            <!-- front content -->
+        <img src=${filename1}>
+        <div class="front-footer">
+            <div class="firstrow">
+            <h2>${productname}</h2>
+            <p>${condition}</p>
+        </div>
+        <div class="secondrow">
+            <h2>${brand}</h2>
+        <p><i class="fas fa-rupee-sign"></i>${price}</p> 
+        </div>
+        </div>
+		</div>
+		<div class="back">
+            <!-- back content -->
+        <img src="${filename2}">
+        <div class="back-footer">
+        <h2>${Title}</h2> 
+        <p>${Description}</p>
+        </div>
+        <div class="form-buttons">
+        <form method="post" action="/productview">
+            <input type="hidden" name="productid" value=${productid}>
+            <input class="viewproduct" id="viewproduct" name="viewproduct" type="submit" value="VIEW PRODUCT">
+        </form>
+        <form method="post" action="/addtocart">
+          <input type="hidden" name="userID" value=${userid}>
+          <input type="hidden" name="productid" value=${productid}>
+           <input type="hidden" name="productname" value=${productname}>
+            <input type="hidden" name="Title" value=${Title}>
+            <input type="hidden" name="price" value=${price}>
+            <input type="hidden" name="filename1" value=${filename1}>
+         <input class="addtocart" type="submit" value="ADD TO CART"> 
+         </form>
+         </div>
+		</div>
+	</div>
+</div>
+
+
+ `
+ 
+ console.log(mobiles);
+ mobiles.appendChild(div);
+}
+
+})
+
+
+fetch("http://localhost:4000/AllDesktop&Laptops")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+console.log(res);
+let product = res.product4;
+console.log(product);
+let images = res.img4;
+console.log(images);
+
+
+for( let i=0;i<product.length;i++){
+    
+let productid=product[i].productid;
+let productname=product[i].productname;
+let userid = product[i].userid;
+console.log(userid);
+let price = product[i].price;
+let brand = product[i].brand;
+let Title= product[i].Title;
+let Description = product[i].Description
+let condition= product[i].Condition;
+let filename1 = images[i].productfilename1;
+let filename2 = images[i].productfilename2;
+
+let div =document.createElement("div")
+div.innerHTML =`
+
+    
+<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+	<div class="flipper">
+		<div class="front">
+            <!-- front content -->
+        <img src=${filename1}>
+        <div class="front-footer">
+            <div class="firstrow">
+            <h2>${productname}</h2>
+            <p>${condition}</p>
+        </div>
+        <div class="secondrow">
+            <h2>${brand}</h2>
+        <p><i class="fas fa-rupee-sign"></i>${price}</p> 
+        </div>
+        </div>
+		</div>
+		<div class="back">
+            <!-- back content -->
+        <img src="${filename2}">
+        <div class="back-footer">
+        <h2>${Title}</h2> 
+        <p>${Description}</p>
+        </div>
+        <div class="form-buttons">
+        <form method="post" action="/productview">
+            <input type="hidden" name="productid" value=${productid}>
+            <input class="viewproduct" id="viewproduct" name="viewproduct" type="submit" value="VIEW PRODUCT">
+        </form>
+        <form method="post" action="/addtocart">
+          <input type="hidden" name="userID" value=${userid}>
+          <input type="hidden" name="productid" value=${productid}>
+           <input type="hidden" name="productname" value=${productname}>
+            <input type="hidden" name="Title" value=${Title}>
+            <input type="hidden" name="price" value=${price}>
+            <input type="hidden" name="filename1" value=${filename1}>
+         <input class="addtocart" type="submit" value="ADD TO CART"> 
+         </form>
+         </div>
+		</div>
+	</div>
+</div>
+
+
+ `
+ 
+ console.log(laptops);
+ laptops.appendChild(div);
+}
+
+})
+
 
    </script>
 </body>

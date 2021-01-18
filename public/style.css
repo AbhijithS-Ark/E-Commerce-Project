@@ -20,7 +20,7 @@ header{
     position:relative;
     z-index:4;
     background:#000000;
-    filter: drop-shadow(0px  1px 2px #15083b);
+    box-shadow: 0 2px 2px #000000;
 
 }
 
@@ -40,9 +40,16 @@ nav{
     justify-content: flex-end;
     margin-right:20px;
 }
+.cart img{
+    width:2.4rem;
+    height:2.4rem;
+    padding:5px;
+    border-radius:50%;
+    background: #ece7e7;
+}
 .logo{
     font-family: 'Lobster', cursive;
-    font-size:1.4rem;
+    font-size:1.5rem;
     color:oldlace;
     margin:5px;
     cursor:pointer;

@@ -283,8 +283,7 @@ s_a[252]="Bulawayo|Harare|ManicalandMashonaland Central|Mashonaland East|Mashona
 
 function print_country(country_id){
 	// given the id of the <select> tag as function argument, it inserts <option> tags
-	var option_str = document.getElementById(country_id);
-	option_str.length=0;
+	var option_str = document.getElementById(country_id);	option_str.length=0;
 	option_str.options[0] = new Option('Select Country','');
 	option_str.selectedIndex = 0;
 	for (var i=0; i<country_arr.length; i++) {

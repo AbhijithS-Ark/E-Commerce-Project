@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    background:#284e5f;
+    min-height: 100vh;
+    width:100vw;
+}
+.shipwrapper{
+    display:flex;
+    justify-content:space-around;
+    margin:1rem auto;
+    background: #ffffff;
+}
+.shipitems{
+    background:#000000;
+    width:50%;
+    max-width:900px;
+    display:flex;
+    justify-content:space-evenly;
+    border-left:2px solid #fb640c;
+    padding-top:2rem;
+    color:#fff;
+    line-height:2;
+   font-family: Poppins,'sans-serif';
+   border-bottom:2px solid #fb640c;
+
+
+}
+.ship,.shiper{
+   border-bottom:2px solid #fb640c;
+}
+
+div#user.useraddress{
+   background:#ffffff;
+   width:50%;
+   line-height:1.3;
+   padding-left:9rem;
+   color:#284e5f;
+   font-family: Poppins,'sans-serif';
+}
+.name,.midcontent{
+    display: flex;
+}
+#heading{
+    color:#fb640c;
+    font-size:1.5rem;
+}
+
+.totalprice{
+    display:flex;
+    justify-content:flex-end;
+    font-family:Poppins;
+  font-weight: 500;
+  background:#fff;
+
+}
+.total{
+    margin-right:25rem;
+}
+

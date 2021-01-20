@@ -50,6 +50,7 @@
         </nav>
         <div class="cart">
         <a href="/cart"><img src="/Homeimages/Vector.png"></a>
+        <span id="cart">0</div>
     </div>
     </header>
     <div class="container">
@@ -171,6 +172,23 @@ productcontent.appendChild(div);
  
 }
 })
+
+let cart=document.getElementById("cart")
+
+fetch("http://localhost:4000/cartcounts")
+.then((res) => {
+
+return res.json();
+}).then((res)=>{
+    console.log(res);
+    let count=res.count;
+    console.log(count);
+    let cartcount = count.cartcount;
+    console.log(cartcount);
+    cart.innerHTML=`<p>${cartcount}</p>`
+    console.log(cart);   
+})
+
     </script>
 </body>
 </html>

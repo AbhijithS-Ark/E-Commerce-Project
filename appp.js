@@ -69,7 +69,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
   }
 });*/
 //sequelize set up 
-db.sequelize.sync({ force:true }).then(()=>{
+db.sequelize.sync(/*{ force:true }*/).then(()=>{
    console.log(" database working");
    app.listen(PORT,()=>{
       console.log(`listening at : http://localhost:${PORT}`);
@@ -298,6 +298,7 @@ app.post('/signup', (req,res) =>{
          db.user.create({
             emailId: `${email}`,
             password: `${passwordfield}`,
+            cartcount:`${0}`
         })
       .then((user) => {
              console.log('User created successfully');
@@ -356,11 +357,11 @@ app.post('/multipart-upload',(req,res)=>{
            req.flash("msg","ERROR OCCURED DURING FILE UPLOAD")
            return res.render("Sell",{msg:req.flash('msg'),title:'POST'});
         }
-       else if( req.files[0]=="undefined"||req.files[1] == "undefined"){
+       else if( req.files[0]==="undefined"||req.files[1] === "undefined"){
            req.flash("msg","PLEASE UPLOAD 2 IMAGES");
            return res.render("Sell",{msg:req.flash('msg'),title:'POST'});
          }
-       else if(req.files[0]&&req.files[1] !== "undefined"){
+       else if(req.files[0]!="undefined"&&req.files[1] != "undefined"){
              console.log(req.files);
              let image1 = req.files[0];
              let image2 = req.files[1];
@@ -925,8 +926,38 @@ return  res.render("profile",{title:'Profile'})
      }
 });
 
+async function updatecartcount() {
 
 
+   const trigger_cartadd = await db.sequelize.query('CREATE TRIGGER cart_add AFTER INSERT ON carts' +
+   ' FOR EACH ROW' +
+   ' BEGIN' +
+   '  UPDATE users SET cartcount = cartcount + 1 WHERE userid=userid;' +
+   'END;')
+
+   const trigger_cartdelete = await db.sequelize.query('CREATE TRIGGER cart_delete AFTER DELETE ON carts' +
+   ' FOR EACH ROW' +
+   ' BEGIN' +
+   '  UPDATE users SET cartcount = cartcount - 1 WHERE userid=userid;' +
+   'END;')
+}
+setTimeout(() => {
+   console.log("--------------------------------------------------------------------------------------");
+   updatecartcount();
+}, 2000)
+
+
+app.get('/cartcounts',(req,res)=>{
+   db.user.findOne({
+      where:{userid:req.session.userid},
+      attributes:['cartcount']
+   }).then((count)=>{
+  console.log(count,"this is the cartcount");
+      res.send({count});
+   }).catch((err)=>{
+    console.log("some error occured here please find",err)
+}) 
+})
 
 //404 error occured 
 app.get('*',(req,res)=>{

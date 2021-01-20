@@ -40,13 +40,47 @@ nav{
     flex:0.2;
     justify-content: flex-end;
     margin-right:20px;
+    position: relative;
+    transition: all 0.5s ease;
 }
+.cart img:hover{
+    background:#000000;
+    box-shadow:inset 2px 2px 5px #cecdcd;
+
+}
+span#cart{
+    color:#eeecec;
+position: absolute;
+    background: #000000;
+    box-shadow:inset 0 5px 10px #ff3c00;
+    width:20px;
+    height:20px;
+    border-radius: 50px;
+    z-index: 999;
+    font-family: 'Poppins',sans-serif;
+    font-size:1rem;
+    margin-left: 5px;
+    
+}
+p{
+    font-family: 'Poppins',sans-serif;
+    font-size:1rem;
+    text-align: center;
+    line-height:1.2;
+    color:#ffffff;
+    font-weight: 700;
+    transition: all 0.5s ease-in-out;
+}
+
+
 .cart img{
     width:2.4rem;
     height:2.4rem;
     padding:5px;
     border-radius:50%;
     background: #f8f6f6;
+    box-shadow:inset 2px 2px 4px #ee6969;
+
 }
 .logo{
     font-family: 'Lobster', cursive;

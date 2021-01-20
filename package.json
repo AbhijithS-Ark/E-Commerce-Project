@@ -2,9 +2,9 @@
   "name": "our-project",
   "version": "1.0.0",
   "description": "E-Commerce application as mini project.",
-  "main": "app.js",
+  "main": "appp.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node appp.js"
   },
   "author": "Abhijith S , LavaKumar",
   "license": "ISC",

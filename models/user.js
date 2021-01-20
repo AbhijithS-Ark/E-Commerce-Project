@@ -18,7 +18,12 @@ module.exports = (sequelize , DataTypes) =>{
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        cartcount: {
+            type: DataTypes.INTEGER,
+            allowNull:true
         }
+
         
     });
 

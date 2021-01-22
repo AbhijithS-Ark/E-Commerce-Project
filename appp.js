@@ -789,39 +789,39 @@ app.post('/checkout',(req,res)=>{
     db.cart.findAll({
        where:{userid:req.session.userid}
     }).then((cart)=>{
-      let cartid = []
+      let cartID = []
       cart.forEach(element => {
-         cartid.push(element.dataValues.cartid)
+         cartID.push(element.dataValues.cartid)
       });
       
-      console.log(cartid);
-      let productid = []
+      console.log(cartID);
+      let productID = []
       cart.forEach(element => {
-         productid.push(element.dataValues.productid)
+         productID.push(element.dataValues.productid)
       });
-      console.log(productid);
+      console.log(productID);
       let Qty = []
       cart.forEach(element => {
          Qty.push(element.dataValues.Qty_ordered)
       });
       console.log(Qty);
-      console.log(productid);
-      console.log(cartid);
+      console.log(productID);
+      console.log(cartID);
       let today=new Date();
       let date=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       console.log(date);
       let arrivaldate=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()+5);
       console.log(arrivaldate);
-      for( let i=0;i<=cartid.length;i++){
+      for( let i=0;i<cartID.length;i++){
       db.ship.create({
          shipdate:`${date}`,
          arrivaldate:`${arrivaldate}`,
          userid:`${req.session.userid}`,
-         cartid:`${cartid[i]}`
+         cartid:`${cartID[i]}`
       })
    }
       db.product.findAll({
-         where:{productid:productid},
+         where:{productid:productID},
             attributes:['Qty_add']
             }).then((product)=>{
                let Quantity = []
@@ -830,21 +830,22 @@ app.post('/checkout',(req,res)=>{
                });
                console.log(Quantity);
                let UpdatedQuantity = []
-               for(i=0;i<Quantity.length;i++){
+               for( let i=0;i<Quantity.length;i++){
                      UpdatedQuantity[i]=Quantity[i]-Qty[i];
                }
                console.log(UpdatedQuantity);
                for(let i=0;i<=UpdatedQuantity.length;i++){
                db.product.update({Qty_add:UpdatedQuantity[i]},{
-                  where:{productid:productid,Qty_add:Quantity[i]}
-    })   
+                  where:{productid:productID[i],Qty_add:Quantity[i]}
+    }) 
     }
-   }) .then(()=>{
+   })  .then(()=>{
       return res.render('ship',{title:'shipment'})
          }).catch((err)=>{
              console.log("some error occured here please find",err)
          }) 
-   })
+  
+  })
 })
 
 
